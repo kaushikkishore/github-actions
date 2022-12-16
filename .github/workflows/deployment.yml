@@ -1,5 +1,5 @@
 name: Deploy Project
-on: [workflow_dispatch]
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -12,9 +12,12 @@ jobs:
           node-version: 18
       - name: Install Dependency
         run: npm ci
+      - name: Lint the project
+        run: npm run lint
       - name: Run tests
         run: npm test
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -25,5 +28,9 @@ jobs:
           node-version: 18
       - name: Install Dependency
         run: npm ci
+      - name: Lint the code
+        run: npm run lint
+      - name: Build the code
+        run: npm run build
       - name: Deploy to server
         run: echo "Deploying to respective server"

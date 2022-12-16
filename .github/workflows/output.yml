@@ -1,29 +1,8 @@
-name: Deploy Project
+name: Output environment variables
 on: [workflow_dispatch]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Code
-        uses: actions/checkout@v3
-      - name: Install Node Js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install Dependency
-        run: npm ci
-      - name: Run tests
-        run: npm test
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Code
-        uses: actions/checkout@v3
-      - name: Install Node JS
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install Dependency
-        run: npm ci
-      - name: Deploy to server
-        run: echo "Deploying to respective server"
+      - name: Output files
+        run: echo "${{ toJOSN(github) }}"
