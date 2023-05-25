@@ -17,10 +17,10 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: /root/.cache/docker-deps
-          key: ${{ runner.os }}-docker-deps-${{ hashFiles('**/Dockerfile') }}
+          path: /var/lib/docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
           restore-keys: |
-            ${{ runner.os }}-docker-deps-
+            ${{ runner.os }}-docker-
 
       - name: Build and tag Docker image
         run: |
